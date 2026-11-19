@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER IMÓVEIS — Residências de Alto Padrão</title>
+  <meta name="description" content="Apartamentos e imóveis cuidadosamente selecionados para quem valoriza localização, arquitetura e a sensação de estar no lugar certo.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ATELIER IMÓVEIS — Residências de Alto Padrão">
+  <meta property="og:description" content="Apartamentos e imóveis cuidadosamente selecionados para quem valoriza localização, arquitetura e bem-estar.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Cormorant Garamond & Manrope -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    #hero-cinematic-section {
+      position: relative;
+      width: 100%;
+      height: 700vh;
+      background: var(--color-green-mineral);
+    }
+
+    #canvas-sticky-wrapper {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    /* Overlay escuro elegante e pontual */
+    #canvas-sticky-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(16, 23, 20, 0.65) 0%,
+        rgba(16, 23, 20, 0.25) 50%,
+        rgba(16, 23, 20, 0.58) 100%
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    canvas#stage {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    @media (max-width: 640px) {
+      #hero-cinematic-section {
+        height: 550vh; /* Otimizado para rolagem mobile mais confortável */
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="atelier.css">
+  <link rel="stylesheet" href="editorial.css">
+  <script src="motion.js" defer></script>
+</head>
+<body>
+  <a href="#curadoria" class="skip-to-content">Pular para o conteúdo principal</a>
+  <header id="main-header" class="site-header">
+    <a class="brand" href="#hero-cinematic-section" aria-label="Atelier Imóveis, início"><svg class="brand-symbol" aria-hidden="true" viewBox="0 0 40 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="miter"><path d="M2 37 18 5h4L6 37Zm9 0L24 11l2.4 5L16 37Zm10 0 7.8-15.6 2.5 5L26 37Zm10 0 2.8-5.7 2.9 5.7Z"/></svg><span class="brand-type"><span class="brand-name">Atelier</span><span class="brand-trade">Imóveis</span></span></a>
+    <nav class="header-nav" aria-label="Navegação principal">
+        <a href="#curadoria">Curadoria</a>
+        <a href="#destaque">Residência</a>
+        <a href="#sobre">Sobre a Atelier</a>
+    </nav>
+    <div class="header-actions">
+      <a class="nav-cta" href="#conversao">Fale conosco <svg aria-hidden="true" class="listing-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19 19 5M6 5h13v13"/></svg></a>
+      <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Menu de navegação" aria-expanded="false" aria-controls="mobile-drawer"><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="mobile-menu-drawer" id="mobile-drawer" role="dialog" aria-label="Menu de navegação" aria-modal="true" aria-hidden="true">
+    <nav class="mobile-menu-links" aria-label="Navegação móvel">
+        <a href="#curadoria" class="mobile-link">Curadoria</a>
+        <a href="#destaque" class="mobile-link">Residência</a>
+        <a href="#sobre" class="mobile-link">Sobre a Atelier</a>
+      <a class="mobile-link" href="#bairros">O entorno</a>
+      <a class="mobile-link" href="#conversao">Contato</a>
+    </nav>
+  </div>
+
+  <section id="hero-cinematic-section" aria-label="Tour de arquitetura">
+    <div id="canvas-sticky-wrapper">
+      <canvas id="stage" aria-hidden="true"></canvas>
+      <div class="hero-story-layer" id="hero-story-layer">
+        <article class="chapter-card active" id="chapter-01">
+          <span class="chapter-label">Caderno de visitas</span>
+          <h1><span>A cidade,</span> <em>da varanda</em></h1>
+          <p>As janelas começam a acender. Da rua, subimos até a varanda de um apartamento de 162 m².</p>
+          <div class="tour-actions">
+            <a class="tour-button" href="#destaque">Ver a residência <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+            <span class="tour-cue" id="hero-scroll-cue"><svg aria-hidden="true" viewBox="0 0 16 23" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="1.5" width="12" height="19.5" rx="6"/><path d="M8 5v4"/></svg>Role para explorar</span>
+          </div>
+        </article>
+        <article class="chapter-card" id="chapter-02">
+          <span class="chapter-label">A arquitetura</span>
+          <h2>Linhas que <em>se encontram</em></h2>
+          <p>As varandas desenham faixas de luz no perfil da torre.</p>
+        </article>
+        <article class="chapter-card" id="chapter-03">
+          <span class="chapter-label">A varanda</span>
+          <h2>Entre o céu <em>e a casa</em></h2>
+          <p>O vidro aproxima a cidade. A varanda prolonga a sala ao ar livre.</p>
+        </article>
+        <article class="chapter-card" id="chapter-04">
+          <span class="chapter-label">A vista</span>
+          <h2>Um instante <em>no horizonte</em></h2>
+        </article>
+        <article class="chapter-card" id="chapter-05">
+          <span class="chapter-label">Os interiores</span>
+          <h2>A luz encontra <em>seu lugar</em></h2>
+          <p>Do living à cozinha, a madeira e a pedra dão continuidade aos ambientes.</p>
+        </article>
+        <article class="chapter-card" id="chapter-06">
+          <span class="chapter-label">A visita</span>
+          <h2>Veja <em>de perto</em></h2>
+          <p>Conheça a residência no seu próprio ritmo, em uma visita acompanhada pela Atelier.</p>
+          <div class="tour-actions"><a href="#conversao" class="tour-button">Agendar uma visita <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+        </article>
+        <div class="tour-console">
+          <div class="tour-index" id="hero-tracker" aria-label="Etapas do tour">
+            <div class="console-label">Percurso</div>
+            <div class="tour-progress" aria-hidden="true"><div id="hero-progress-bar"></div></div>
+            <div class="tracker-list">
+              <span class="tracker-item active" data-chapter="1">Fachada</span>
+              <span class="tracker-item" data-chapter="2">Arquitetura</span>
+              <span class="tracker-item" data-chapter="3">Varanda</span>
+              <span class="tracker-item" data-chapter="4">Interiores</span>
+              <span class="tracker-item" data-chapter="5">Visita</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <main class="catalogo">
+    <section class="ed-wrap ed-intro" id="curadoria" aria-labelledby="ed-intro-title">
+      <div>
+        <p class="ed-kicker">Nossa curadoria</p>
+        <h2 class="ed-title" id="ed-intro-title">Residência em <em>destaque.</em></h2>
+      </div>
+      <p class="ed-body">O olhar da Atelier acompanha a luz que entra pela varanda, a proporção dos ambientes e a relação de cada residência com a cidade.</p>
+    </section>
+
+    <article class="ed-wrap ed-listing" id="destaque" aria-labelledby="ed-listing-title">
+      <figure class="ed-cover" id="imoveis">
+        <img src="2/ezgif-frame-061.jpg" alt="Living com sofás claros, iluminado pelo teto e aberto para a cidade ao entardecer" loading="lazy" decoding="async">
+        <figcaption>Living integrado</figcaption>
+      </figure>
+      <div class="ed-listing-head">
+        <div>
+          <p class="ed-kicker">Apartamento tipo</p>
+          <h3 class="ed-subtitle" id="ed-listing-title">Uma planta aberta para a vista.</h3>
+        </div>
+        <a class="ed-link" href="#conversao">Consultar residência <span aria-hidden="true">↗</span></a>
+      </div>
+      <dl class="ed-specs">
+        <div><dt>Área do apartamento</dt><dd>162 <small>m²</small></dd></div>
+        <div><dt>Suítes</dt><dd>3</dd></div>
+        <div><dt>Vagas de garagem</dt><dd>3</dd></div>
+      </dl>
+    </article>
+
+    <section class="ed-gallery" id="conteudo" aria-labelledby="ed-gallery-title">
+      <div class="ed-wrap">
+        <p class="ed-kicker">Caderno de arquitetura</p>
+        <h2 class="ed-title" id="ed-gallery-title">Por dentro do <em>projeto.</em></h2>
+        <div class="ed-gallery-grid">
+          <figure class="ed-gallery-balcony">
+            <img src="1/ezgif-frame-181.jpg" alt="Varanda de vidro com poltronas diante das portas amplas do living" loading="lazy" decoding="async">
+            <figcaption><strong>Varanda</strong><span>O living encontra o horizonte.</span></figcaption>
+          </figure>
+          <figure class="ed-gallery-kitchen">
+            <img src="2/ezgif-frame-181.jpg" alt="Cozinha aberta, com uma ilha de pedra clara e pendentes sobre a bancada" loading="lazy" decoding="async">
+            <figcaption><strong>Cozinha</strong><span>A ilha aproxima quem cozinha de quem chega.</span></figcaption>
+          </figure>
+          <figure class="ed-gallery-suite">
+            <img src="2/ezgif-frame-291.jpg" alt="Suíte com cabeceira de madeira e abertura para o céu do fim de tarde" loading="lazy" decoding="async">
+            <figcaption><strong>Suíte</strong><span>A luz do entardecer chega até o quarto.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="ed-wrap ed-place" id="bairros" aria-labelledby="ed-place-title">
+      <figure><img src="1/ezgif-frame-001.jpg" alt="O edifício e o perfil da cidade vistos de longe, ao entardecer" loading="lazy" decoding="async"></figure>
+      <div class="ed-place-text">
+        <p class="ed-kicker">O território</p>
+        <h2 class="ed-title" id="ed-place-title">Ao redor <em>do endereço.</em></h2>
+        <p class="ed-body">O que cabe no caminho entre casa, a escola e o trabalho também pesa na escolha. Na visita, nossa equipe apresenta os parques, restaurantes e serviços do entorno.</p>
+        <a class="ed-link" href="#conversao">Conversar sobre o bairro <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="ed-wrap ed-method" id="sobre" aria-labelledby="ed-method-title">
+      <div>
+        <p class="ed-kicker">Sobre a Atelier</p>
+        <h2 class="ed-title" id="ed-method-title">A escolha,<br><em>de perto.</em></h2>
+      </div>
+      <div>
+        <ol class="ed-steps">
+          <li><h3>Descoberta</h3><p>O primeiro encontro é para ouvir o que você procura em um endereço.</p></li>
+          <li><h3>Seleção</h3><p>Reunimos residências que atendem às suas prioridades e apresentamos os detalhes de cada uma.</p></li>
+          <li><h3>Visita</h3><p>Agendamos o encontro e acompanhamos você pelo imóvel e pelo bairro.</p></li>
+        </ol>
+        <figure class="ed-quote">
+          <blockquote>“Desde o primeiro atendimento, sentimos segurança e clareza em todo o processo. Encontramos um apartamento que superou nossas expectativas.”</blockquote>
+          <figcaption>Mariana Oliveira <span>· Cliente Atelier</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ed-contact" id="conversao" aria-labelledby="ed-contact-title">
+      <div class="ed-wrap ed-contact-inner">
+        <div>
+          <p class="ed-kicker">Atendimento privado</p>
+          <h2 class="ed-title" id="ed-contact-title">Vamos marcar <em>uma visita?</em></h2>
+        </div>
+        <div class="ed-contact-actions">
+          <a class="ed-button" href="https://api.whatsapp.com/send?phone=5562999990000" target="_blank" rel="noopener noreferrer">Falar pelo WhatsApp <span aria-hidden="true">↗</span></a>
+          <a class="ed-phone" href="tel:+5562999990000">(62) 99999-0000</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ed-footer">
+    <div class="ed-wrap ed-footer-inner">
+      <a class="brand" href="#hero-cinematic-section" aria-label="Atelier Imóveis, início"><svg class="brand-symbol" aria-hidden="true" viewBox="0 0 40 42" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="miter"><path d="M2 37 18 5h4L6 37Zm9 0L24 11l2.4 5L16 37Zm10 0 7.8-15.6 2.5 5L26 37Zm10 0 2.8-5.7 2.9 5.7Z"/></svg><span class="brand-type"><span class="brand-name">Atelier</span><span class="brand-trade">Imóveis</span></span></a>
+      <nav aria-label="Rodapé">
+        <a href="#curadoria">Curadoria</a>
+        <a href="#conteudo">Arquitetura</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#conversao">Contato</a>
+      </nav>
+      <div class="ed-credit"><span>© 2026 Atelier Imóveis</span><span>CRECI 00000 (demonstrativo)</span></div>
+    </div>
+  </footer>
+
+  <script>
+    // Configurações dos frames originais (591 frames preservados)
+    const TOTAL_1 = 300;
+    const TOTAL_2 = 291;
+    const TOTAL_FRAMES = TOTAL_1 + TOTAL_2;
+
+    function getFrameSrc(index) {
+      if (index < TOTAL_1) {
+        const num = String(index + 1).padStart(3, '0');
+        return `1/ezgif-frame-${num}.jpg`;
+      } else {
+        const num = String(index - TOTAL_1 + 1).padStart(3, '0');
+        return `2/ezgif-frame-${num}.jpg`;
+      }
+    }
+
+    const canvas = document.getElementById('stage');
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const images = new Array(TOTAL_FRAMES);
+    const loaded = new Array(TOTAL_FRAMES).fill(false);
+
+    // Detecção de modo de performance (Mobile / Baixo consumo de memória)
+    const isMobile = window.innerWidth <= 768;
+    const PRELOAD_BEHIND = isMobile ? 3 : 8;
+    const PRELOAD_AHEAD = isMobile ? 6 : 15;
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // Limita DPR a 2 para eficiência térmica/mobile
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      renderFrame(Math.round(currentFrameProgress));
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    function loadFrame(index) {
+      if (index < 0 || index >= TOTAL_FRAMES) return;
+      if (!images[index]) {
+        const img = new Image();
+        img.src = getFrameSrc(index);
+        img.onload = () => {
+          loaded[index] = true;
+          if (Math.round(currentFrameProgress) === index) {
+            drawToCanvas(img);
+          }
+        };
+        images[index] = img;
+      }
+    }
+
+    function drawToCanvas(img) {
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+      
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+
+      // Escala cobrindo todo o canvas (cover fit)
+      const scale = Math.max(cw / iw, ch / ih);
+      const nw = iw * scale;
+      const nh = ih * scale;
+      const ox = (cw - nw) / 2;
+      const oy = (ch - nh) / 2;
+
+      ctx.drawImage(img, ox, oy, nw, nh);
+    }
+
+    let lastRenderedIndex = -1;
+    function renderFrame(index) {
+      const clamped = Math.max(0, Math.min(TOTAL_FRAMES - 1, index));
+      loadFrame(clamped);
+
+      // Preload adaptativo
+      for (let offset = -PRELOAD_BEHIND; offset <= PRELOAD_AHEAD; offset++) {
+        loadFrame(clamped + offset);
+      }
+
+      if (images[clamped] && loaded[clamped]) {
+        drawToCanvas(images[clamped]);
+        lastRenderedIndex = clamped;
+      } else if (lastRenderedIndex !== -1 && images[lastRenderedIndex] && loaded[lastRenderedIndex]) {
+        drawToCanvas(images[lastRenderedIndex]);
+      }
+    }
+
+    // Interpolação Linear (LERP) para transições ultra-suaves de rolagem
+    let targetProgress = 0;
+    let currentFrameProgress = 0;
+
+    // CONFIGURAÇÃO CENTRALIZADA DOS CAPÍTULOS NARRATIVOS (Capítulos 01 a 06)
+    const CHAPTERS_CONFIG = [
+      {
+        id: 'chapter-01',
+        element: document.getElementById('chapter-01'),
+        start: 0.00,
+        fadeIn: 0.00,
+        fadeOut: 0.11,
+        end: 0.14
+      },
+      {
+        id: 'chapter-02',
+        element: document.getElementById('chapter-02'),
+        start: 0.15,
+        fadeIn: 0.18,
+        fadeOut: 0.28,
+        end: 0.32
+      },
+      {
+        id: 'chapter-03',
+        element: document.getElementById('chapter-03'),
+        start: 0.33,
+        fadeIn: 0.36,
+        fadeOut: 0.44,
+        end: 0.48
+      },
+      {
+        id: 'chapter-04',
+        element: document.getElementById('chapter-04'),
+        start: 0.49,
+        fadeIn: 0.52,
+        fadeOut: 0.60,
+        end: 0.63
+      },
+      {
+        id: 'chapter-05',
+        element: document.getElementById('chapter-05'),
+        start: 0.64,
+        fadeIn: 0.67,
+        fadeOut: 0.81,
+        end: 0.85
+      },
+      {
+        id: 'chapter-06',
+        element: document.getElementById('chapter-06'),
+        start: 0.86,
+        fadeIn: 0.89,
+        fadeOut: 0.99,
+        end: 1.00
+      }
+    ];
+
+    // Elementos de UI adicionais
+    const heroSection = document.getElementById('hero-cinematic-section');
+    const heroScrollCue = document.getElementById('hero-scroll-cue');
+    const heroProgressBar = document.getElementById('hero-progress-bar');
+    const trackerItems = document.querySelectorAll('.tracker-item');
+    const mainHeader = document.getElementById('main-header');
+    const heroStoryLayer = document.getElementById('hero-story-layer');
+
+    function onScroll() {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const heroRect = heroSection.getBoundingClientRect();
+      const heroTop = scrollY + heroRect.top;
+      const heroMaxScroll = heroSection.offsetHeight - window.innerHeight;
+
+      // Progresso restrito à seção Hero (0.0 a 1.0)
+      let heroProgress = 0;
+      if (scrollY >= heroTop && heroMaxScroll > 0) {
+        heroProgress = Math.min(Math.max((scrollY - heroTop) / heroMaxScroll, 0), 1);
+      } else if (scrollY > heroTop + heroMaxScroll) {
+        heroProgress = 1;
+      }
+
+      targetProgress = heroProgress * (TOTAL_FRAMES - 1);
+
+      // Atualiza barra de progresso mobile
+      if (heroProgressBar) {
+        heroProgressBar.style.width = `${heroProgress * 100}%`;
+      }
+
+      // Se passou da hero, oculta a camada de narrativa para nunca cobrir outras seções
+      if (heroStoryLayer) {
+        if (heroProgress >= 0.999 && heroRect.bottom <= 0) {
+          heroStoryLayer.style.display = 'none';
+        } else {
+          heroStoryLayer.style.display = 'block';
+        }
+      }
+
+      // Oculta indicador de scroll após começar a rolar
+      if (heroScrollCue) {
+        heroScrollCue.style.opacity = Math.max(0, 1 - heroProgress * 12);
+      }
+
+      // ATUALIZAÇÃO REFINADA DOS CAPÍTULOS NARRATIVOS
+      const isMobileView = window.innerWidth <= 640;
+      CHAPTERS_CONFIG.forEach((ch) => {
+        if (!ch.element) return;
+
+        let opacity = 0;
+        let translateY = 0;
+
+        if (heroProgress >= ch.start && heroProgress <= ch.end) {
+          // Fase Fade In
+          if (heroProgress < ch.fadeIn) {
+            const range = ch.fadeIn - ch.start;
+            const factor = range > 0 ? (heroProgress - ch.start) / range : 1;
+            opacity = factor;
+            translateY = (1 - factor) * 16;
+          }
+          // Visibilidade Plena
+          else if (heroProgress >= ch.fadeIn && heroProgress <= ch.fadeOut) {
+            opacity = 1;
+            translateY = 0;
+          }
+          // Fase Fade Out
+          else {
+            const range = ch.end - ch.fadeOut;
+            const factor = range > 0 ? (heroProgress - ch.fadeOut) / range : 1;
+            opacity = Math.max(0, 1 - factor);
+            translateY = -factor * 16;
+          }
+        } else {
+          opacity = 0;
+          translateY = heroProgress < ch.start ? 16 : -16;
+        }
+
+        // Aplicação de estilos precisa
+        ch.element.style.opacity = opacity;
+        ch.element.style.pointerEvents = opacity > 0.4 ? 'auto' : 'none';
+
+        // Em mobile preserva o posicionamento na base da tela
+        if (isMobileView) {
+          ch.element.style.transform = `translateY(${translateY}px)`;
+        } else {
+          // Em desktop mantém centrado verticalmente ou com offset
+          if (ch.id === 'chapter-04' || ch.id === 'chapter-06') {
+            ch.element.style.transform = `translate(-50%, calc(-50% + ${translateY}px))`;
+          } else {
+            ch.element.style.transform = `translateY(calc(-50% + ${translateY}px))`;
+          }
+        }
+      });
+
+      // ATUALIZAÇÃO DO TRACKER VERTICAL LATERAL (01 A 05)
+      // 01 O Empreendimento (~0-18%)
+      // 02 A Arquitetura (~18-42%)
+      // 03 A Varanda (~42-62%)
+      // 04 Os Interiores (~62-84%)
+      // 05 O Próximo Passo (~84-100%)
+      let activeTracker = 1;
+      if (heroProgress >= 0.84) activeTracker = 5;
+      else if (heroProgress >= 0.62) activeTracker = 4;
+      else if (heroProgress >= 0.42) activeTracker = 3;
+      else if (heroProgress >= 0.18) activeTracker = 2;
+
+      trackerItems.forEach((item) => {
+        const step = parseInt(item.getAttribute('data-chapter'), 10);
+        if (step === activeTracker) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Adaptação das cores do Header conforme a seção de fundo
+      const curadoriaEl = document.getElementById('curadoria');
+      const conversaoEl = document.getElementById('conversao');
+
+      if (curadoriaEl && conversaoEl) {
+        const curadoriaTop = curadoriaEl.getBoundingClientRect().top;
+        const conversaoTop = conversaoEl.getBoundingClientRect().top;
+
+        if (conversaoTop <= 60) {
+          mainHeader.className = 'site-header scrolled-dark';
+        } else if (curadoriaTop <= 60) {
+          mainHeader.className = 'site-header scrolled-light';
+        } else {
+          mainHeader.className = 'site-header';
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    function tick() {
+      const diff = targetProgress - currentFrameProgress;
+      currentFrameProgress += diff * 0.12;
+
+      renderFrame(Math.round(currentFrameProgress));
+      requestAnimationFrame(tick);
+    }
+
+    // Gerenciamento do Menu Mobile
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMenu() {
+      const isOpen = mobileDrawer.classList.contains('open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    function openMenu() {
+      mobileDrawer.classList.add('open');
+      menuToggle.classList.add('active');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      mobileDrawer.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('menu-open');
+    }
+
+    function closeMenu() {
+      mobileDrawer.classList.remove('open');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      mobileDrawer.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('menu-open');
+    }
+
+    if (menuToggle && mobileDrawer) {
+      menuToggle.addEventListener('click', toggleMenu);
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Fechar com tecla Escape
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+          closeMenu();
+        }
+      });
+    }
+
+    // Inicialização robusta garantida no carregamento da janela
+    function init() {
+      resizeCanvas();
+      loadFrame(0);
+      for (let i = 0; i <= (isMobile ? 12 : 25); i++) {
+        loadFrame(i);
+      }
+      onScroll();
+      requestAnimationFrame(tick);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>

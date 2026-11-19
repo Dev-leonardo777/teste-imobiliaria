@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Animation - Backup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      background-color: #000;
+      overflow-x: hidden;
+      scrollbar-width: none; /* Firefox */
+    }
+    body::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+    #scroll-container {
+      position: relative;
+      width: 100%;
+      height: 700vh;
+    }
+    #canvas-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+    #canvas-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div id="scroll-container">
+    <div id="canvas-wrapper">
+      <canvas id="stage"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const TOTAL_1 = 300;
+    const TOTAL_2 = 291;
+    const TOTAL_FRAMES = TOTAL_1 + TOTAL_2;
+
+    function getFrameSrc(index) {
+      if (index < TOTAL_1) {
+        const num = String(index + 1).padStart(3, '0');
+        return `../1/ezgif-frame-${num}.jpg`;
+      } else {
+        const num = String(index - TOTAL_1 + 1).padStart(3, '0');
+        return `../2/ezgif-frame-${num}.jpg`;
+      }
+    }
+
+    const canvas = document.getElementById('stage');
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const images = new Array(TOTAL_FRAMES);
+    const loaded = new Array(TOTAL_FRAMES).fill(false);
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      renderFrame(Math.round(currentFrameProgress));
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    function loadFrame(index) {
+      if (index < 0 || index >= TOTAL_FRAMES) return;
+      if (!images[index]) {
+        const img = new Image();
+        img.src = getFrameSrc(index);
+        img.onload = () => {
+          loaded[index] = true;
+          if (Math.round(currentFrameProgress) === index) {
+            drawToCanvas(img);
+          }
+        };
+        images[index] = img;
+      }
+    }
+
+    function drawToCanvas(img) {
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+      
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+
+      const scale = Math.max(cw / iw, ch / ih);
+      const nw = iw * scale;
+      const nh = ih * scale;
+      const ox = (cw - nw) / 2;
+      const oy = (ch - nh) / 2;
+
+      ctx.drawImage(img, ox, oy, nw, nh);
+    }
+
+    let lastRenderedIndex = -1;
+    function renderFrame(index) {
+      const clamped = Math.max(0, Math.min(TOTAL_FRAMES - 1, index));
+      loadFrame(clamped);
+
+      for (let offset = -8; offset <= 15; offset++) {
+        loadFrame(clamped + offset);
+      }
+
+      if (images[clamped] && loaded[clamped]) {
+        drawToCanvas(images[clamped]);
+        lastRenderedIndex = clamped;
+      } else if (lastRenderedIndex !== -1 && images[lastRenderedIndex] && loaded[lastRenderedIndex]) {
+        drawToCanvas(images[lastRenderedIndex]);
+      }
+    }
+
+    let targetProgress = 0;
+    let currentFrameProgress = 0;
+
+    function onScroll() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const progress = maxScroll > 0 ? Math.min(Math.max(scrollY / maxScroll, 0), 1) : 0;
+      targetProgress = progress * (TOTAL_FRAMES - 1);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    function tick() {
+      const diff = targetProgress - currentFrameProgress;
+      currentFrameProgress += diff * 0.12;
+
+      renderFrame(Math.round(currentFrameProgress));
+      requestAnimationFrame(tick);
+    }
+
+    resizeCanvas();
+    loadFrame(0);
+    for (let i = 0; i <= 25; i++) {
+      loadFrame(i);
+    }
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>
